@@ -1,27 +1,70 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Галерея графиков</title>
-<style>
-body{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;margin:20px;background:#fafafa}
-h1{margin:0 0 16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-.card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:10px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-.card img{width:100%;height:auto;display:block;border-radius:6px;background:#f5f5f5}
-.cap{margin-top:8px;color:#555;font-size:.9em;word-break:break-word}
-.empty{color:#666}
-</style></head><body>
-<h1>Галерея графиков</h1>
-<div class="grid">
-
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Our Team Plots</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: #000;   /* черный фон */
+      color: #fff;        /* белый текст */
+      text-align: center; /* центрируем текст */
+    }
+    h1 {
+      margin: 0 0 24px;
+      font-size: 2em;
+    }
+    .grid {
+      display: grid;
+      justify-content: center; /* центрируем сетку */
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 1px 4px rgba(255,255,255,0.1);
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      background: #222;
+    }
+    .cap {
+      margin-top: 8px;
+      color: #aaa;
+      font-size: .9em;
+      word-break: break-word;
+    }
+    .empty {
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>Our Team Plots</h1>
+  <div class="grid">
     <div class="card">
-      <a href="img/и еще один тест.jpg" target="_blank"><img src="img/и еще один тест.jpg" alt="и еще один тест.jpg" loading="lazy"></a>
+      <a href="img/и еще один тест.jpg" target="_blank">
+        <img src="img/и еще один тест.jpg" alt="и еще один тест.jpg" loading="lazy">
+      </a>
       <div class="cap">и еще один тест.jpg</div>
     </div>
     <div class="card">
-      <a href="img/тут подписи графиков;).png" target="_blank"><img src="img/тут подписи графиков;).png" alt="тут подписи графиков;).png" loading="lazy"></a>
+      <a href="img/тут подписи графиков;).png" target="_blank">
+        <img src="img/тут подписи графиков;).png" alt="тут подписи графиков;).png" loading="lazy">
+      </a>
       <div class="cap">тут подписи графиков;).png</div>
     </div>
-</div>
-
-</body></html>
+  </div>
+</body>
+</html>

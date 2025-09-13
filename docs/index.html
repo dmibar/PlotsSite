@@ -2,37 +2,73 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>Галерея графиков</title>
+  <title>Our Team Plots</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: sans-serif; margin: 20px; background:#fafafa; }
-    h1 { margin-bottom: 20px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .card img { max-width: 100%; height: auto; border-radius: 4px; }
-    .caption { color: #555; margin-top: 6px; font-size: 0.9em; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif; margin: 20px; background:#fafafa; }
+    h1 { margin: 0 0 16px; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .card { background:#fff; border:1px solid #e5e5e5; border-radius:10px; padding:10px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+    .card img { width:100%; height:auto; display:block; border-radius:6px; background:#f5f5f5; }
+    .cap { margin-top:8px; color:#555; font-size:.9em; word-break:break-word; }
+    .empty { color:#666; }
   </style>
 </head>
 <body>
   <h1>Галерея графиков</h1>
-  <div class="grid">
-    <!-- просто перечисляем картинки -->
-    <div class="card">
-      <img src="img/20250913__demo__line__v01.png" alt="Demo">
-      <div class="caption">20250913__demo__line__v01.png</div>
-    </div>
+  <div id="grid" class="grid"></div>
+  <p id="empty" class="empty" style="display:none">Пока нет изображений. Положите файлы в <code>docs/img/</code> и сделайте push в <code>main</code>.</p>
 
-    <!-- новые картинки добавляйте так же -->
-  </div>
+<script>
+  // === настроить под свой репо ===
+  const OWNER  = 'dmibar';       // <- твой логин GitHub
+  const REPO   = 'PlotsSite';       // <- имя репозитория
+  const BRANCH = 'main';         // ветка с /docs
+
+  // GitHub API вернет список файлов в /docs/img
+  const API_URL = https://api.github.com/repos/${OWNER}/${REPO}/contents/docs/img?ref=${BRANCH};
+  // На GitHub Pages папка /docs становится корнем сайта, поэтому картинки доступны как /img/<file>
+  const IMG_BASE = 'img/';
+
+  async function loadImages() {
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+
+    try {
+      const resp = await fetch(API_URL, { headers: { 'Accept': 'application/vnd.github+json' }});
+      if (!resp.ok) throw new Error('GitHub API error: ' + resp.status);
+      const items = await resp.json();
+
+      const files = (Array.isArray(items) ? items : [])
+        .filter(x => x.type === 'file')
+        .filter(x => /\.(png|jpg|jpeg|svg)$/i.test(x.name));
+
+      if (!files.length) {
+        empty.style.display = 'block';
+        return;
+      }
+
+      files.sort((a,b)=> a.name.localeCompare(b.name)); // алфавитно
+      for (const f of files) {
+        const name = f.name;
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <a href="${IMG_BASE}${name}" target="_blank" title="Открыть оригинал">
+            <img src="${IMG_BASE}${name}" alt="${name}" loading="lazy">
+          </a>
+          <div class="cap">${name}</div>
+        `;
+        grid.appendChild(card);
+      }
+    } catch (e) {
+      console.error(e);
+      empty.textContent = 'Не получилось получить список файлов из docs/img. Проверьте, что репозиторий публичный и путь корректен.';
+      empty.style.display = 'block';
+    }
+  }
+
+  loadImages();
+</script>
 </body>
 </html>

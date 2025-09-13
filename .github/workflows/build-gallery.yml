@@ -1,0 +1,27 @@
+name: Build gallery (docs)
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build docs/index.html from docs/img/*
+        run: |
+          python scripts/make_gallery.py
+      - name: Commit updated docs/index.html
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild gallery"
+          file_pattern: docs/index.html

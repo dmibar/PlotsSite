@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Галерея графиков</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; background:#fafafa; }
+    h1 { margin-bottom: 20px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .card img { max-width: 100%; height: auto; border-radius: 4px; }
+    .caption { color: #555; margin-top: 6px; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h1>Галерея графиков</h1>
+  <div class="grid">
+    <!-- просто перечисляем картинки -->
+    <div class="card">
+      <img src="img/20250913__demo__line__v01.png" alt="Demo">
+      <div class="caption">20250913__demo__line__v01.png</div>
+    </div>
+
+    <!-- новые картинки добавляйте так же -->
+  </div>
+</body>
+</html>
